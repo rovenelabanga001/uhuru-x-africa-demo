@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Your custom styles below */
+/* body {
+  font-family: system-ui, sans-serif;
+} */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+button {
+  cursor: pointer;
+}
+.secondary-btn {
+  background: rgb(91, 244, 64);
+  color: black;
+  border: none;
+  padding: 10px 8px;
+  cursor: pointer;
+}
+.page {
+  padding: 20px 20px;
+}
+.text-brand-green {
+  color: #4a6a51;
+}
+/* .brand-green-ligh{
+
+} */

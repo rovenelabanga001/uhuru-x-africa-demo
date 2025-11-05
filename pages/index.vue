@@ -8,12 +8,18 @@
       </div>
     </div>
     <div class="flex flex-col w-full mt-20 gap-3 text-center">
-      <button class="secondary-btn font-semibold w-full text-lg rounded-lg">
+      <button
+        class="secondary-btn font-semibold w-full text-lg rounded-lg md:w-[50%] md:self-center lg:w-[40%]"
+      >
         Get Started
       </button>
       <p class="text-lg text-[rgb(30,140,110)]">
         Already have an account?
-        <span class="underline cursor-pointer">Sign In</span>
+        <span
+          class="underline cursor-pointer"
+          @click="navigateTo('/auth/signin')"
+          >Sign In</span
+        >
       </p>
       <div class="flex w-full flex-row items-center justify-center gap-3 pt-5">
         <div class="h-2 w-2 rounded-full bg-primary"></div>

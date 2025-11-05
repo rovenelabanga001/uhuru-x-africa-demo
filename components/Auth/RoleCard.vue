@@ -1,5 +1,10 @@
 <template>
-  <div v-for="role in roleInfo" v-if="roleInfo" :key="role.id">
+  <div
+    v-for="role in roleInfo"
+    v-if="roleInfo"
+    :key="role.id"
+    class="mb-5 lg:w-[70%]"
+  >
     <div
       class="flex flex-col items-center justify-center bg-[#EAF0EC] py-8 rounded-lg gap-3"
     >
@@ -15,7 +20,9 @@
       <p class="text-xl">
         {{ role.text }}
       </p>
-      <button class="bg-[#F2C94C] w-[95%] rounded-lg py-3 self-center mt-3">
+      <button
+        class="bg-[#F2C94C] w-[95%] rounded-lg py-3 self-center mt-3 md:w-[50%] lg:w-[30%]"
+      >
         <span class="text-xl font-bold">{{ role.btnTxt }}</span>
       </button>
     </div>

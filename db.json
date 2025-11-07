@@ -1,0 +1,46 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "fullname": "Rovenel Abanga",
+      "email": "rovenel@example.com",
+      "password": "12345678",
+      "userInfo": {
+        "religion": "",
+        "language": "",
+        "age_range": "",
+        "gender": "",
+        "employment_status": "",
+        "goals": []
+      }
+    },
+    {
+      "id": "c701",
+      "fullname": "John Doe",
+      "email": "johndoe@example.com",
+      "password": "MyP@ssw0rd",
+      "userInfo": {
+        "religion": "",
+        "language": "",
+        "age_range": "",
+        "gender": "",
+        "employment_status": "",
+        "goals": []
+      }
+    },
+    {
+      "id": "0824",
+      "fullname": "jane doe",
+      "email": "janedoe@example.com",
+      "password": "MyP@ssw0rd",
+      "userInfo": {
+        "religion": "",
+        "language": "",
+        "age_range": "",
+        "gender": "",
+        "employment_status": "",
+        "goals": []
+      }
+    }
+  ]
+}

@@ -11,7 +11,8 @@
         "age_range": "",
         "gender": "",
         "employment_status": "",
-        "goals": []
+        "goals": [],
+        "role": ""
       }
     },
     {
@@ -25,7 +26,8 @@
         "age_range": "",
         "gender": "",
         "employment_status": "",
-        "goals": []
+        "goals": [],
+        "role": ""
       }
     },
     {
@@ -39,7 +41,8 @@
         "age_range": "",
         "gender": "",
         "employment_status": "",
-        "goals": []
+        "goals": [],
+        "role": ""
       }
     }
   ]

@@ -3,6 +3,7 @@
     class="w-full min-h-screen bg-[#F7F9F7] flex flex-col justify-center items-center gap-7 p-10"
   >
     <span
+      @click="navigateTo('/auth/signin')"
       class="self-end text-gray-500 font-semibold text-xl cursor-pointer lg:mr-10"
       >Skip</span
     >

@@ -10,13 +10,15 @@
       Which best describes you?
     </h2>
     <div class="flex flex-col items-center gap-[20px]">
-      <AuthRoleCard :role-info="roleTxt" />
+      <ProfileRolesCard :role-info="roleTxt" />
     </div>
 
     <p
       class="text-brand-green underline text-center cursor-pointer lg:mt-[20px]"
     >
-      I am not sure help me choose
+      <NuxtLink to="/profile/roles/breakdown">
+        I am not sure help me choose</NuxtLink
+      >
     </p>
   </div>
 </template>

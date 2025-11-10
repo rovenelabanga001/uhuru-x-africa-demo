@@ -7,15 +7,26 @@ export const useAuthStore = defineStore("auth", {
     token: localStorage.getItem("token") || null,
     otp: null,
     otpExpiresAt: null,
+    otpVerified: false,
+    sessionStart: localStorage.getItem("sessionStart") || null,
   }),
 
   getters: {
     isLoggedIn: (state) => !!state.token && !!state.user,
+    isOtpPending: (state) =>
+      !!state.token && !!state.user && !state.otpVerified,
+    isSessionValid: (state) => {
+      if (!state.sessionStart) return false;
+      const now = Date.now();
+      const expiryTime = 24 * 60 * 60 * 1000;
+      return now - state.sessionStart < expiryTime;
+    },
   },
 
   actions: {
     async login(formData, toast) {
       const config = useRuntimeConfig();
+      const profileStore = useProfileStore();
 
       try {
         const users = await $fetch(
@@ -29,10 +40,15 @@ export const useAuthStore = defineStore("auth", {
           return false;
         }
 
-        const { password, ...safeUser } = user;
+        if (user.userInfo) {
+          profileStore.setUserInfo(user.userInfo);
+        }
 
-        this.user = user;
+        const { password, userInfo, ...safeUser } = user;
+
+        this.user = safeUser;
         this.token = crypto.randomUUID();
+        this.sessionStart = Date.now();
 
         const otpSent = await this.sendOtp(user.email);
         if (!otpSent) {
@@ -42,6 +58,7 @@ export const useAuthStore = defineStore("auth", {
 
         localStorage.setItem("user", JSON.stringify(safeUser));
         localStorage.setItem("token", this.token);
+        localStorage.setItem("sessionStart", this.sessionStart);
 
         navigateTo("/auth/otp-verification");
       } catch (err) {
@@ -55,7 +72,9 @@ export const useAuthStore = defineStore("auth", {
       this.token = null;
       localStorage.removeItem("user");
       localStorage.removeItem("token");
-      toast.success("Logged out successfully");
+      localStorage.removeItem("sessionStart");
+      localStorage.removeItem("profileStore");
+      if (toast) toast.success("Logged out successfully");
       navigateTo("/auth/signin");
     },
     getUser() {
@@ -68,10 +87,18 @@ export const useAuthStore = defineStore("auth", {
     restoreSession() {
       const storedUser = localStorage.getItem("user");
       const storedToken = localStorage.getItem("token");
+      const storedSession = localStorage.getItem("sessionStart");
 
-      if (storedUser && storedToken) {
-        this.user = JSON.parse(storedUser);
-        this.token = storedToken;
+      if (storedUser && storedToken && storedSession) {
+        const now = Date.now();
+
+        if (now - Number(storedSession) > 24 * 60 * 60 * 1000) {
+          this.logout();
+        } else {
+          this.user = JSON.parse(storedUser);
+          this.token = storedToken;
+          this.storedSession = Number(storedSession);
+        }
       }
     },
     generateOtp() {
@@ -131,6 +158,8 @@ export const useAuthStore = defineStore("auth", {
       }
 
       toast?.success("OTP verified. Login successfull");
+
+      this.otpVerified = true;
       this.otp = null;
       this.otpExpiresAt = null;
       navigateTo("/profile/setup", { replace: true });

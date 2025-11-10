@@ -39,6 +39,8 @@
 </template>
 
 <script setup>
+const profileStore = useProfileStore();
+
 const props = defineProps({
   userInfo: {
     type: Object,
@@ -77,11 +79,11 @@ const options = reactive([
 ]);
 
 const toggleGoal = (goal) => {
-  const index = props.userInfo?.goals.indexOf(goal);
+  const index = profileStore.userInfo.goals.indexOf(goal);
   if (index === -1) {
-    props.userInfo?.goals.push(goal);
+    profileStore.userInfo.goals.push(goal);
   } else {
-    props.userInfo?.goals.splice(index, 1);
+    profileStore.userInfo.goals.splice(index, 1);
   }
 };
 </script>

@@ -4,8 +4,9 @@
       <span class="material-symbols-outlined text-[#4A6A51] text-3xl"
         >agriculture</span
       >
-      <h2 class="font-bold text-xl">Welcome! How can we help?</h2>
+      <h2 class="font-bold text-xl">Welcome! Pick a role</h2>
     </div>
+    <UIProgressBar />
     <h2 class="text-start font-bold text-3xl mt-3 lg:text-center">
       Which best describes you?
     </h2>
@@ -25,4 +26,8 @@
 
 <script setup>
 import { roleTxt } from "~/public/role-buttons";
+
+const profileStore = useProfileStore();
+
+console.log(profileStore.userInfo);
 </script>

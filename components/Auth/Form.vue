@@ -47,7 +47,7 @@
       <input
         v-model="formData.password"
         :type="showPassword ? 'text' : 'password'"
-        placeholder="Create a password"
+        :placeholder="isSignUp ? 'Create a password' : 'Enter  password'"
         id="password"
         class="w-full py-3 px-1 rounded-xl text-xl focus:outline-0 focus:border-0 focus:ring-2 focus:ring-blue/50 border-2 bg-white/50"
         :class="v$?.password?.$error ? 'border-red-500' : 'border-[#66BB6A]'"
@@ -162,7 +162,7 @@ const strongPassword = helpers.withMessage(
 const rules = computed(() => ({
   fullname: props.isSignUp ? { required, twoNames } : {},
   email: { required, email },
-  password: { required, strongPassword },
+  password: props.isSignUp ? { required, strongPassword } : { required },
   confirmPassword: props.isSignUp
     ? {
         required,

@@ -67,7 +67,6 @@ const otpDigits = ref(["", "", "", "", "", ""]);
 
 const verifyOtp = () => {
   const otpValue = otpDigits.value.join("");
-  console.log(otpValue);
   auth.verifyOtp(otpValue, $toast);
 };
 

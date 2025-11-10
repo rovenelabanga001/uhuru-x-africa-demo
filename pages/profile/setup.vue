@@ -4,6 +4,7 @@
       class="page w-full min-h-screen bg-[#FCFDF9] flex flex-col items-center justify-center gap-6 md:px-20"
     >
       <form action="" @submit.prevent="handleSubmit">
+        <UIProgressBar />
         <div class="mb-10 flex w-full justify-center">
           <div class="flex items-center gap-3">
             <div class="h-2 w-8 rounded-full bg-[#f0e68c]"></div>
@@ -43,17 +44,22 @@
 import useVuelidate from "@vuelidate/core";
 import { required, helpers } from "@vuelidate/validators";
 
-const userInfo = reactive({
-  religion: "",
-  language: "",
-  age_range: "",
-  gender: "",
-  employment_status: "",
-  goals: [],
-});
+const config = useRuntimeConfig();
+const auth = useAuthStore();
+const profileStore = useProfileStore();
+
+const userInfo = reactive({ ...profileStore.userInfo });
+
+watch(
+  userInfo,
+  (val) => {
+    profileStore.userInfo = val;
+  },
+  { deep: true }
+);
 
 const rules = computed(() => ({
-  religion: { required },
+  region: { required },
   language: { required },
   age_range: { required },
   gender: { required },
@@ -68,22 +74,25 @@ const rules = computed(() => ({
 
 const v$ = useVuelidate(rules, userInfo);
 
-const toggleGoal = (goal) => {
-  const index = userInfo.goals.indexOf(goal);
-  if (index === -1) {
-    userInfo.goals.push(goal);
-  } else {
-    userInfo.goals.splice(index, 1);
+const handleSubmit = async () => {
+  v$.value.$touch();
+  try {
+    if (!v$.value.$invalid) {
+      const userId = auth.user?.id;
+
+      const res = await profileStore.updateUserInfoOnServer(userId);
+
+      if (res) {
+        console.log(
+          "user info updated and store synced: ",
+          profileStore.userInfo
+        );
+
+        navigateTo("/profile/roles", { replace: true });
+      }
+    }
+  } catch (err) {
+    console.error(err);
   }
 };
-
-async function handleSubmit() {
-  v$.value.$touch();
-  if (!v$.value.$invalid) {
-    console.log("✅ Form submitted:", JSON.stringify(userInfo, null, 2));
-    navigateTo("/profile/roles", { replace: true });
-  } else {
-    console.warn("❌ Validation failed");
-  }
-}
 </script>

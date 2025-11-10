@@ -6,7 +6,7 @@
       "email": "rovenel@example.com",
       "password": "12345678",
       "userInfo": {
-        "religion": "",
+        "region": "",
         "language": "",
         "age_range": "",
         "gender": "",
@@ -21,7 +21,7 @@
       "email": "johndoe@example.com",
       "password": "MyP@ssw0rd",
       "userInfo": {
-        "religion": "",
+        "region": "",
         "language": "",
         "age_range": "",
         "gender": "",
@@ -36,7 +36,7 @@
       "email": "janedoe@example.com",
       "password": "MyP@ssw0rd",
       "userInfo": {
-        "religion": "",
+        "region": "",
         "language": "",
         "age_range": "",
         "gender": "",
@@ -49,7 +49,22 @@
       "id": "42d9",
       "fullname": "Rovenel Ouma",
       "email": "rovenelouma2001@gmail.com",
-      "password": "MyP@ssw0rd"
+      "password": "MyP@ssw0rd",
+      "userInfo": {
+        "region": "Uganda",
+        "language": "Swahili",
+        "age_range": "35-44",
+        "gender": "Male",
+        "employment_status": "Employed",
+        "goals": [
+          "Increase crop yield"
+        ],
+        "role": "SEVA",
+        "interests": [
+          "farming",
+          "financial"
+        ]
+      }
     }
   ]
 }

@@ -1,7 +1,7 @@
 export const profileInfo = [
   {
     id: "1",
-    modelKey: "religion",
+    modelKey: "region",
     question: "Where are you located",
     placeholder: "Select your region",
     choices: ["Kenya", "Uganda", "Tanzania"],

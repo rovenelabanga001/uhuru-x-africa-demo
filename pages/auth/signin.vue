@@ -22,3 +22,8 @@
     <AuthForm :isSignUp="false" />
   </div>
 </template>
+<script setup>
+// definePageMeta({
+//   layout: "setup-layout",
+// });
+</script>

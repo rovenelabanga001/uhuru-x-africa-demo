@@ -21,7 +21,23 @@
         {{ role.text }}
       </p>
       <button
+        v-if="profileStore.userInfo.role === role.logoTitle"
+        class="bg-emerald-800 rounded-full p-3 self-center mt-3"
+        @click="onBtnClick(role.logoTitle)"
+        disabled
+      >
+        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fill-rule="evenodd"
+            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </button>
+      <button
+        v-else
         class="bg-[#F2C94C] w-[95%] rounded-lg py-3 self-center mt-3 md:w-[50%] lg:w-[30%]"
+        @click="onBtnClick(role.logoTitle)"
       >
         <span class="text-xl font-bold">{{ role.btnTxt }}</span>
       </button>
@@ -32,4 +48,21 @@
 const props = defineProps({
   roleInfo: Array,
 });
+
+const config = useRuntimeConfig();
+
+const auth = useAuthStore();
+const profileStore = useProfileStore();
+const onBtnClick = async (roleTitle) => {
+  try {
+    const userId = auth.user?.id;
+
+    profileStore.setUserInfo({ role: roleTitle });
+    const res = await profileStore.updateUserInfoOnServer(userId);
+    console.log("Role updated on server", res);
+    navigateTo("/profile/onboarding", { replace: true });
+  } catch (err) {
+    console.error(err);
+  }
+};
 </script>

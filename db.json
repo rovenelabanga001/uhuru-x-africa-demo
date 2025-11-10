@@ -51,19 +51,30 @@
       "email": "rovenelouma2001@gmail.com",
       "password": "MyP@ssw0rd",
       "userInfo": {
-        "region": "Uganda",
+        "region": "Kenya",
         "language": "Swahili",
-        "age_range": "35-44",
+        "age_range": "25-34",
         "gender": "Male",
         "employment_status": "Employed",
-        "goals": [
-          "Increase crop yield"
-        ],
-        "role": "SEVA",
-        "interests": [
-          "farming",
-          "financial"
-        ]
+        "goals": ["Increase crop yield"],
+        "role": "",
+        "interests": ["farming", "financial"]
+      }
+    },
+    {
+      "id": "4c67",
+      "fullname": "Abanga Rovenel",
+      "email": "rovenelabanga2001@gmail.com",
+      "password": "MyP@ssw0rd",
+      "userInfo": {
+        "region": "",
+        "language": "",
+        "age_range": "",
+        "gender": "",
+        "employment_status": "",
+        "goals": [],
+        "role": "FARMERS",
+        "interests": ["farming", "financial"]
       }
     }
   ]

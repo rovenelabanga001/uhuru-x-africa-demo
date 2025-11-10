@@ -1,3 +1,3 @@
 <template>
-  <p>Not provided</p>
+  <p class="text-red-500 text-sm">Not provided</p>
 </template>

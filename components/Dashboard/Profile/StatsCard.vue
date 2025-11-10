@@ -6,14 +6,81 @@
     <div class="space-y-4">
       <div class="flex items-center justify-between">
         <span class="text-gray-600">Profile Completion</span>
-        <span class="font-bold text-emerald-500">100%</span>
+        <span class="font-bold text-emerald-500"
+          >{{ profileStore.profileProgress }}%</span
+        >
       </div>
       <div class="h-2 w-full rounded-full bg-gray-200">
-        <div class="h-full w-full rounded-full bg-emerald-500"></div>
+        <div
+          class="h-full rounded-full bg-emerald-500 transition-all duration-500"
+          :style="{ width: profileStore.profileProgress + '%' }"
+        ></div>
       </div>
+      <button
+        class="border border-2 border-emerald-500 px-3 py-1 rounded-full mt-5"
+      >
+        <span
+          class="text-emerald-500"
+          v-if="profileStore.profileProgress === 100"
+          >Update Profile</span
+        >
+        <span
+          class="text-emerald-500"
+          v-else-if="profileStore.profileProgress !== 100"
+          >Complete Profile</span
+        >
+      </button>
     </div>
   </div>
 </template>
 <script setup>
+import { profileInfo } from "~/public/profileSetup";
 
+const profileStore = useProfileStore();
+
+profileStore.calculateProfileProgress();
+console.log(profileStore.profileProgress);
+
+const handleProfileNavigation = () => {
+  const userInfo = profileStore.userInfo;
+  //Case 1: Profile 0% or 100% complete -> Go to setup
+  if (
+    profileStore.profileProgress === 0 ||
+    profileStore.profileProgress === 100
+  ) {
+    navigateTo("/profile/setup");
+  }
+
+  //Case 2: Only the first set of details filled
+  if (
+    profileStore.userInfo.region &&
+    profileStore.userInfo.language &&
+    profileStore.userInfo.age_range &&
+    profileStore.userInfo.gender &&
+    profileStore.userInfo.employment_status &&
+    profileStore.userInfo.goals?.length > 0 &&
+    !profileStore.userInfo.role
+  ) {
+    navigateTo("profile/roles");
+    return;
+  }
+
+  //Case 3: First + role_filled -> Go to interests
+  if (
+    profileStore.userInfo.region &&
+    profileStore.userInfo.language &&
+    profileStore.userInfo.age_range &&
+    profileStore.userInfo.gender &&
+    profileStore.userInfo.employment_status &&
+    profileStore.userInfo.goals?.length &&
+    profileStore.userInfo.role &&
+    !profileStore.userInfo.role &&
+    !profileStore.userInfo.interests?.length
+  ) {
+    navigateTo("/profile/onboarding");
+    return;
+  }
+
+  navigateTo("profile/setup");
+};
 </script>

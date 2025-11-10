@@ -27,6 +27,7 @@
         </p>
         <div class="flex flex-wrap gap-3">
           <div
+            v-if="profileStore.userInfo?.goals?.length > 0"
             v-for="goal in userInfo.goals"
             :key="goal"
             class="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2"
@@ -40,6 +41,7 @@
             </svg>
             <span class="font-medium text-emerald-900">{{ goal }}</span>
           </div>
+          <DashboardProfileFallBack v-else />
         </div>
       </div>
     </main>
@@ -51,5 +53,5 @@ const auth = useAuthStore();
 const profileStore = useProfileStore();
 
 const userInfo = reactive({ ...profileStore.userInfo });
-console.log(userInfo.goals);
+console.log(profileStore.userInfo);
 </script>

@@ -87,7 +87,7 @@ const handleSubmit = async () => {
           "user info updated and store synced: ",
           profileStore.userInfo
         );
-
+        profileStore.calculateProfileProgress();
         navigateTo("/profile/roles", { replace: true });
       }
     }

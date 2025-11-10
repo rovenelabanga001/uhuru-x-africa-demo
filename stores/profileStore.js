@@ -16,6 +16,7 @@ export const useProfileStore = defineStore("profile", {
   actions: {
     setUserInfo(info) {
       this.userInfo = { ...this.userInfo, ...info };
+      this.calculateProfileProgress();
     },
 
     async updateUserInfoOnServer(userId) {
@@ -52,9 +53,11 @@ export const useProfileStore = defineStore("profile", {
 
       const hasInterests = this.userInfo.interests.length > 0;
 
-      if (hasBasicInfo) progress += 33;
+      if (hasDemographics) progress += 33;
       if (hasRole) progress += 33;
       if (hasInterests) progress += 34;
+
+      console.log(progress);
 
       this.profileProgress = progress;
       return progress;

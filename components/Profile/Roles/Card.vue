@@ -22,7 +22,7 @@
       </p>
       <button
         v-if="profileStore.userInfo.role === role.logoTitle"
-        class="bg-emerald-800 rounded-full p-3 self-center mt-3"
+        class="bg-green-500 rounded-full p-3 self-center mt-3"
         @click="onBtnClick(role.logoTitle)"
         disabled
       >
@@ -47,22 +47,15 @@
 <script setup>
 const props = defineProps({
   roleInfo: Array,
+  isBreakDown: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const config = useRuntimeConfig();
 
 const auth = useAuthStore();
 const profileStore = useProfileStore();
-const onBtnClick = async (roleTitle) => {
-  try {
-    const userId = auth.user?.id;
-
-    profileStore.setUserInfo({ role: roleTitle });
-    const res = await profileStore.updateUserInfoOnServer(userId);
-    console.log("Role updated on server", res);
-    navigateTo("/profile/onboarding", { replace: true });
-  } catch (err) {
-    console.error(err);
-  }
-};
+const onBtnClick = inject("onRoleBtnClick");
 </script>

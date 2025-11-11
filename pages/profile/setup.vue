@@ -23,7 +23,7 @@
         <div class="flex justify-center w-full mt-5">
           <button
             type="submit"
-            class="font-bold text-xl rounded-3xl bg-[#A8D5BA] py-3 px-8 shadow-sm hover:scale-[1.02] active:scale-[0.98] md:w-[50%]"
+            class="font-bold text-white rounded-3xl bg-green-500 py-3 px-8 shadow-sm hover:scale-[1.02] active:scale-[0.98] md:w-[50%]"
           >
             Continue
           </button>
@@ -88,7 +88,7 @@ const handleSubmit = async () => {
           profileStore.userInfo
         );
         profileStore.calculateProfileProgress();
-        navigateTo("/profile/roles", { replace: true });
+        navigateTo("/profile/roles");
       }
     }
   } catch (err) {

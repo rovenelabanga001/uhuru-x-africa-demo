@@ -17,9 +17,9 @@
         </h2>
         <p class="text-gray-600 text-base md:text-lg">
           Enter the 6-digit code sent to you at
-          <!-- <span class="font-semibold text-gray-800">{{
-            auth.user[0].email
-          }}</span> -->
+          <span class="font-semibold text-gray-800">{{
+            auth.user?.email
+          }}</span>
         </p>
       </div>
 
@@ -50,6 +50,7 @@
         <p class="text-gray-600 text-sm md:text-base">
           Didn't get a code?
           <button
+            @click="auth.sendOtp(auth.user?.email)"
             class="text-green-500 font-semibold hover:text-green-600 transition-colors"
           >
             Resend
@@ -77,14 +78,23 @@ const focusNext = (index) => {
   }
 };
 onMounted(() => {
-  const remaining = auth.otpExpiresAt - Date.now();
-  if (remaining > 0) {
-    setTimeout(() => {
-      $toast.error("Otp expired. Please Login again");
+  const auth = useAuthStore();
+
+  // Only run this OTP timeout logic if the user is logged in but OTP not yet verified
+  if (auth.isLoggedIn && !auth.otpVerified) {
+    const remaining = auth.otpExpiresAt - Date.now();
+
+    if (remaining > 0) {
+      // Schedule logout after OTP expires
+      setTimeout(() => {
+        $toast.error("OTP expired. Please login again");
+        auth.logout($toast);
+      }, remaining);
+    } else {
+      // OTP already expired, log out immediately
+      $toast.error("OTP expired. Please login again");
       auth.logout($toast);
-    }, remaining);
-  } else {
-    auth.logout($toast);
+    }
   }
 });
 </script>

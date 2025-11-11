@@ -12,7 +12,7 @@ export const useAuthStore = defineStore("auth", {
   }),
 
   getters: {
-    isLoggedIn: (state) => !!state.token && !!state.user,
+    isLoggedIn: (state) => !!state.token && !!state.user && state.otpVerified,
     isOtpPending: (state) =>
       !!state.token && !!state.user && !state.otpVerified,
     isSessionValid: (state) => {
@@ -70,10 +70,11 @@ export const useAuthStore = defineStore("auth", {
     logout(toast) {
       this.user = null;
       this.token = null;
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
-      localStorage.removeItem("sessionStart");
-      localStorage.removeItem("profileStore");
+      // localStorage.removeItem("user");
+      // localStorage.removeItem("token");
+      // localStorage.removeItem("sessionStart");
+      // localStorage.removeItem("profileStore");
+      localStorage.clear();
       if (toast) toast.success("Logged out successfully");
       navigateTo("/auth/signin");
     },
@@ -88,6 +89,8 @@ export const useAuthStore = defineStore("auth", {
       const storedUser = localStorage.getItem("user");
       const storedToken = localStorage.getItem("token");
       const storedSession = localStorage.getItem("sessionStart");
+      const storedOtpVerified = localStorage.getItem("otpVerified");
+      this.otpVerified = storedOtpVerified === "true";
 
       if (storedUser && storedToken && storedSession) {
         const now = Date.now();
@@ -98,6 +101,7 @@ export const useAuthStore = defineStore("auth", {
           this.user = JSON.parse(storedUser);
           this.token = storedToken;
           this.storedSession = Number(storedSession);
+          this.otpVerified = storedOtpVerified === "true";
         }
       }
     },
@@ -160,9 +164,11 @@ export const useAuthStore = defineStore("auth", {
       toast?.success("OTP verified. Login successfull");
 
       this.otpVerified = true;
+      localStorage.setItem("otpVerified", "true");
+
       this.otp = null;
       this.otpExpiresAt = null;
-      navigateTo("/profile/setup", { replace: true });
+      navigateTo("/dashboard", { replace: true });
       return true;
     },
   },

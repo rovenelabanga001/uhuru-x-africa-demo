@@ -105,9 +105,33 @@
       </small>
     </div>
     <button
-      class="w-full py-3 flex items-center justify-center rounded-xl bg-[#66BB6A] text-white text-xl font-bold hover:bg-opacity-90"
+      class="w-full py-3 flex items-center justify-center rounded-xl text-white text-xl font-bold hover:bg-opacity-90 transition-all duration-200 disabled:cursor-not-allowed"
+      :class="loading ? 'bg-gray-300' : 'bg-[#66BB6A]'"
+      :disabled="loading"
     >
-      {{ isSignUp ? "Sign up" : "Sign in" }}
+      <template v-if="loading">
+        <svg
+          class="inline w-5 h-5 mr-2 animate-spin text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          />
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8h4z"
+          />
+        </svg>
+      </template>
+      <template v-else>{{ isSignUp ? "Sign up" : "Sign in" }}</template>
     </button>
     <p :class="['text-xl text-center', !isSignUp && 'mt-[50px] ']">
       {{ isSignUp ? "Already have an account?" : "Don't have an account?" }}
@@ -129,6 +153,8 @@ import { useAuthStore } from "~/stores/authStore";
 const config = useRuntimeConfig();
 const { $toast } = useNuxtApp();
 const auth = useAuthStore();
+
+const loading = ref(false);
 
 const showPassword = ref(false);
 const showConfirmPassword = ref(false);
@@ -180,10 +206,18 @@ const v$ = useVuelidate(rules, formData);
 const handleSubmit = async () => {
   v$.value.$touch();
 
-  if (props.isSignUp) {
-    await handleSignup();
-  } else {
-    await handleLogin();
+  loading.value = true;
+
+  try {
+    if (props.isSignUp) {
+      await handleSignup();
+    } else {
+      await handleLogin();
+    }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    loading.value = false;
   }
 };
 const handleSignup = async () => {
@@ -205,10 +239,18 @@ const handleSignup = async () => {
         fullname: formData.fullname,
         email: formData.email,
         password: formData.password,
+        userInfo: {
+          region: "",
+          language: "",
+          age_range: "",
+          gender: "",
+          employment_status: "",
+          goals: [],
+          role: "",
+          interests: [],
+        },
       },
     });
-
-    localStorage.setItem("userEmail", res.email);
     $toast.success("Signup successfull");
     navigateTo("/auth/signin");
   } catch (err) {

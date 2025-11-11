@@ -7,7 +7,7 @@
     >
       <p class="text-[#333333] text-xl pb-2">{{ info.question }}?</p>
       <select
-        v-model="profileStore.userInfo[info.modelKey]"
+        v-model="props.userInfo[info.modelKey]"
         class="flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-2xl text-xl border-2 border-[#333333]/20 bg-[#FCFDF9] placeholder:text-[#757575] px-4 py-4 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
         :class="{ 'border-red-500': v$[info.modelKey].$error }"
         @blur="v$[info.modelKey].$touch()"

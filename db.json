@@ -1,80 +1,22 @@
 {
   "users": [
     {
-      "id": "1",
-      "fullname": "Rovenel Abanga",
-      "email": "rovenel@example.com",
-      "password": "12345678",
-      "userInfo": {
-        "region": "",
-        "language": "",
-        "age_range": "",
-        "gender": "",
-        "employment_status": "",
-        "goals": [],
-        "role": ""
-      }
-    },
-    {
-      "id": "c701",
-      "fullname": "John Doe",
-      "email": "johndoe@example.com",
-      "password": "MyP@ssw0rd",
-      "userInfo": {
-        "region": "",
-        "language": "",
-        "age_range": "",
-        "gender": "",
-        "employment_status": "",
-        "goals": [],
-        "role": ""
-      }
-    },
-    {
-      "id": "0824",
-      "fullname": "jane doe",
-      "email": "janedoe@example.com",
-      "password": "MyP@ssw0rd",
-      "userInfo": {
-        "region": "",
-        "language": "",
-        "age_range": "",
-        "gender": "",
-        "employment_status": "",
-        "goals": [],
-        "role": ""
-      }
-    },
-    {
-      "id": "42d9",
-      "fullname": "Rovenel Ouma",
+      "id": "8b6f",
+      "fullname": "Abanga Rovenel",
       "email": "rovenelouma2001@gmail.com",
       "password": "MyP@ssw0rd",
       "userInfo": {
-        "region": "Kenya",
-        "language": "Swahili",
-        "age_range": "25-34",
+        "region": "Uganda",
+        "language": "English",
+        "age_range": "18-24",
         "gender": "Male",
         "employment_status": "Employed",
-        "goals": ["Increase crop yield"],
-        "role": "",
-        "interests": ["farming", "financial"]
-      }
-    },
-    {
-      "id": "4c67",
-      "fullname": "Abanga Rovenel",
-      "email": "rovenelabanga2001@gmail.com",
-      "password": "MyP@ssw0rd",
-      "userInfo": {
-        "region": "",
-        "language": "",
-        "age_range": "",
-        "gender": "",
-        "employment_status": "",
-        "goals": [],
+        "goals": [
+          "Increase crop yield",
+          "Find new markets"
+        ],
         "role": "FARMERS",
-        "interests": ["farming", "financial"]
+        "interests": []
       }
     }
   ]

@@ -3,11 +3,11 @@ import { useAuthStore } from "~/stores/authStore";
 export default defineNuxtRouteMiddleware((to, from) => {
   const auth = useAuthStore();
 
+  auth.restoreSession();
+
   const loggedIn = auth.isLoggedIn;
   const otpPending = auth.isOtpPending;
   const sessionValid = auth.isSessionValid;
-
-  auth.restoreSession();
 
   if (!sessionValid) {
     auth.logout();

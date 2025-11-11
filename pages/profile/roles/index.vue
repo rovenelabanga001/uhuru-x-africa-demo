@@ -1,12 +1,15 @@
 <template>
   <div class="page w-full min-h-screen flex flex-col gap-5 lg:gap-3">
-    <div class="flex justify-start items-center gap-7 md:justify-center">
+    <div class="w-full self-center md:w-[50%]">
+      <UIProgressBar />
+    </div>
+    <div class="flex justify-start items-center gap-7">
       <span class="material-symbols-outlined text-[#4A6A51] text-3xl"
         >agriculture</span
       >
-      <h2 class="font-bold text-xl">Welcome! Pick a role</h2>
+      <h2 class="font-bold text-xl">Pick a role</h2>
     </div>
-    <UIProgressBar />
+
     <h2 class="text-start font-bold text-3xl mt-3 lg:text-center">
       Which best describes you?
     </h2>
@@ -20,6 +23,15 @@
       <NuxtLink to="/profile/roles/breakdown">
         I am not sure help me choose</NuxtLink
       >
+    </p>
+    <div class="self-center flex justify-center items-center w-full">
+      <ProfileRolesContinueBtn />
+    </div>
+    <p
+      @click="navigateTo('/profile/onboarding')"
+      class="text-sm text-gray-500 text-center cursor-pointer mt-3"
+    >
+      Skip
     </p>
   </div>
 </template>
